@@ -1,0 +1,7 @@
+.footerLink {
+    margin-top:1%;
+    color:#555;
+}
+a.footerLink:hover{
+    color:#000
+}
