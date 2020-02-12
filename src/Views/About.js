@@ -54,8 +54,8 @@ class About extends React.Component{
                         <Card>
                             <CardBody>
                                 <GridItem xs={12} container justify={'center'} alignItems={'center'} direction={'column'}>
-                                    <Avatar style={{height:200,width:200}} src={require('../assets/img/faces/avatar.jpg')}/>
-                                    <h4>Author</h4>
+                                    <Avatar style={{height:200,width:200}} src={data.blogAvatar}/>
+                                    <h4>{data.blogAuthor}</h4>
                                     {HtmlParser(data.content)}
                                 </GridItem>
                             </CardBody>

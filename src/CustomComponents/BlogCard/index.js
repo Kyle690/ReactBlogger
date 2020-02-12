@@ -24,7 +24,7 @@ export default (props)=>{
 
     const classes = useStyles();
     return (
-        <Card style={{width: "25rem"}}>
+        <Card style={{width: "20rem"}}>
             <img
                 style={{maxHeight: "180px",height:'100%',width:'auto', display: "block"}}
                 className={classes.imgCardTop}

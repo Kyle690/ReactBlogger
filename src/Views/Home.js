@@ -17,6 +17,7 @@ import {BlogFooter} from "../components/Footer/BlogFooter";
 import BlogDivider from "../CustomComponents/Divider";
 import Footer from "../CustomComponents/Footer/";
 import {Helmet} from "react-helmet/es/Helmet";
+import history from "../history";
 
 class Home extends React.Component{
 
@@ -28,7 +29,8 @@ class Home extends React.Component{
                 title,
                 date,
                 content,
-                images
+                images,
+                id
             }=blogs[0];
 
 
@@ -45,7 +47,7 @@ class Home extends React.Component{
                                     {HtmlParser(content.substring(0,600))}
                                     <p style={{fontSize:12,color:'#3C4858'}}>Written: {FormatDate(date)}</p>
                                 </div>
-                                <Button size={'sm'} round>
+                                <Button onClick={()=>history.push(`blog/posts:${id}`)} size={'sm'} round>
                                     Read More
                                 </Button>
                             </Grid>
@@ -83,6 +85,7 @@ class Home extends React.Component{
                                 title={title}
                                 image={images[0]}
                                 date={date}
+                                onClick={()=>history.push(`blog/posts:${id}`)}
                                />
                             </GridItem>
                         )

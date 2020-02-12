@@ -18,3 +18,4 @@ const firebaseConfig={
 export const app = firebase.initializeApp(firebaseConfig);
 export const auth = app.auth();
 export const database = app.database();
+export const apiKey='6fujry69a9wpbu8aunsu9sveksknz9saa255ejd7op05jl7obtbmb';

@@ -15,9 +15,18 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 import headerLinksStyle from "../../assets/jss/material-kit-react/components/headerLinksStyle.jsx";
 import {Avatar, ListItemAvatar} from "@material-ui/core";
+import {GoogleLogin, GoogleLogOut} from "../../Store/Actions/GoogleLogin";
 
 function HeaderLinks({ ...props }) {
-  const { classes, login,logout, isLoggedIn, avatar } = props;
+  const { classes, auth} = props;
+
+  const {isLoggedIn,avatar}=auth;
+  const handleLogin=()=>{
+      props.GoogleLogin()
+  };
+  const handleLogout=()=>{
+    props.GoogleLogOut()
+  };
   return (
     <List className={classes.list}>
         <ListItem className={classes.listItem} >
@@ -31,21 +40,25 @@ function HeaderLinks({ ...props }) {
           </Link>
       </ListItem>
         <ListItem className={classes.listItem} >
-            <Link to={'/blogs'} className={classes.navLink}>
+            <Link to={'/blog'} className={classes.navLink}>
                 Blog Posts
             </Link>
         </ListItem>
         <ListItem className={classes.listItem}>
             {isLoggedIn?
                 <Tooltip title={'Logout'}>
-                    <ListItemAvatar className={classes.navLink}>
-                        <Avatar className={classes.small} alt={'profile'} src={avatar} />
-                    </ListItemAvatar>
+                    <div onClick={handleLogout}>
+                        <ListItemAvatar className={classes.navLink}>
+                            <Avatar style={{height:25,width:25}} alt={'profile'} src={avatar} />
+                        </ListItemAvatar>
+                    </div>
                 </Tooltip>:
                 <Tooltip title={'Login'}>
-                    <ListItemAvatar className={classes.navLink}>
-                        <Avatar style={{height:25,width:25}} alt={'profile'}/>
-                    </ListItemAvatar>
+                    <div onClick={handleLogin}>
+                        <ListItemAvatar className={classes.navLink}>
+                            <Avatar style={{height:25,width:25}} alt={'profile'}/>
+                        </ListItemAvatar>
+                    </div>
                 </Tooltip>
             }
         </ListItem>
@@ -60,4 +73,4 @@ const mapStateToProps=(state)=>{
 };
 
 
-export default connect(mapStateToProps)(withStyles(headerLinksStyle)(HeaderLinks));
+export default connect(mapStateToProps,{GoogleLogin, GoogleLogOut})(withStyles(headerLinksStyle)(HeaderLinks));

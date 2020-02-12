@@ -7,7 +7,7 @@ export const GetContent=(callback)=>dispatch=>{
     ref.on('value',async snap=>{
        const content=snap.val();
 
-       const {data,settings,blogs}=content;
+       const {data,settings,blogs, categories}=content;
 
        const blogKeys= Object.keys(blogs);
        let sortedBlogs=[];
@@ -19,13 +19,23 @@ export const GetContent=(callback)=>dispatch=>{
 
                const blog=blogs[v];
                if(blog.publish && blog.date<=dateNow) {
-                   blog['id'] = v;
-                   a.push(blog)
+                   const { title, images, content, author, date, allowComments, comments, categories}=blog;
+                   a.push({
+                       id:v,
+                       title,
+                       images,
+                       content,
+                       author,
+                       date,
+                       allowComments,
+                       comments,
+                       categories
+                   })
                }
                return a;
            },[])
        }
-       dispatch({type:LOAD_DATA,payload:{data,settings,blogs:sortedBlogs}});
+       dispatch({type:LOAD_DATA,payload:{data,settings,blogs:sortedBlogs, categories}});
         callback({status:1});
     });
 

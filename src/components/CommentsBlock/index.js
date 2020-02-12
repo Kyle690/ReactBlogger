@@ -2,9 +2,8 @@ import React from "react";
 import {Message, Reply} from '@material-ui/icons'
 import {Divider, Grid, ListItemAvatar,ListItemText,ListSubheader,Avatar, ListItem} from "@material-ui/core";
 import Button from "../CustomButtons/Button";
-import {FilterReply, FormatDate} from '../../Functions/FormateDate';
+import {FormatDate, FilterReply} from '../../functions/';
 import CustomInput from "../CustomInput/CustomInput";
-
 const photo= require('../../assets/img/faces/kendall.jpg');
 
 class CommentsBlock extends React.Component{
@@ -36,17 +35,13 @@ class CommentsBlock extends React.Component{
       ]
     };
 
-
     handleChange=(name,id)=>event=>{
         if(id){
             this.setState({[name]:event.target.value,replyId:id, mode:'reply'})
         }else{
             this.setState({[name]:event.target.value, replyId:'',mode:'main'})
         }
-
-
     };
-
 
     renderComments=()=>{
         const commentProps=this.props.comments;
@@ -67,7 +62,7 @@ class CommentsBlock extends React.Component{
                             <Avatar style={{height:45,width:45}} alt={comment.author} src={comment.avatarUrl} />
                         </ListItemAvatar>
                         <ListItemText
-                            primary={(<div>{comment.author} - <span style={{color:'#6E6E6E', fontSize:12}}>{FormatDate(comment.date)}</span></div>)}
+                            primary={(<span>{comment.author} - <span style={{color:'#6E6E6E', fontSize:12}}>{FormatDate(comment.date)}</span></span>)}
                             secondary={
                                 (
                                     <div>
@@ -78,10 +73,10 @@ class CommentsBlock extends React.Component{
                                                 return (
                                                     <ListItem  alignItems="flex-start" key={reply}>
                                                         <ListItemAvatar>
-                                                            <Avatar style={{height:45,width:45}} alt={author} src={avatarUrl} />
+                                                            <Avatar style={{height:25,width:25}} alt={author} src={avatarUrl} />
                                                         </ListItemAvatar>
                                                         <ListItemText
-                                                            primary={(<div>{author} - <span style={{color:'#6E6E6E', fontSize:12}}>{FormatDate(date)}</span></div>)}
+                                                            primary={(<span>{author} - <span style={{color:'#6E6E6E', fontSize:12}}>{FormatDate(date)}</span></span>)}
                                                             secondary={text}
                                                         />
                                                     </ListItem>
@@ -155,6 +150,7 @@ class CommentsBlock extends React.Component{
                         <CustomInput
                             id="mainComment"
                             inputProps={{
+                                value:this.state.mainComment,
                                 multiline:true,
                                 placeholder: "Post a comment!",
                                 onChange:(this.handleChange('mainComment')),
@@ -170,7 +166,7 @@ class CommentsBlock extends React.Component{
             )
         }else{
             return (
-                <Button onClick={()=>onLogin}  size={'sm'} block>
+                <Button style={{marginTop:20}} onClick={onLogin}  size={'sm'} block>
                     Login
                 </Button>
             )

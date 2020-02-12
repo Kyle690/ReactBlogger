@@ -7,3 +7,20 @@ export const FormatDate=(date)=>{
 
     return day+'/'+month+'/'+year+' '+time;
 };
+
+export const FilterReply=(str)=>{
+
+    const profanity =['ass','dick','fuck','poes','wanker','asshole', 'fucking','fucked','shit'];
+
+    const splitStr=str.split(' ');
+
+    const newStr = splitStr.filter(word=>{
+        if(!profanity.includes(word)){
+            return word
+        }
+    }).join(' ');
+
+
+    return newStr.replace(/[^\w\s]/gi, '');
+
+};
