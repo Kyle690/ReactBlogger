@@ -7,7 +7,7 @@ import Parallax from "../components/Parallax/Parallax";
 import {Grid, withStyles, Divider} from "@material-ui/core";
 import GridContainer from "../components/Grid/GridContainer";
 import GridItem from "../components/Grid/GridItem";
-import HtmlParser from "react-html-parser";
+import HtmlParser, {convertNodeToElement} from "react-html-parser";
 import Button from "../components/CustomButtons/Button";
 import landingPageStyle from "../assets/jss/material-kit-react/views/landingPage";
 import Card from "../components/Card/Card";
@@ -20,6 +20,15 @@ import {Helmet} from "react-helmet/es/Helmet";
 import history from "../history";
 
 class Home extends React.Component{
+
+    transformFunc=(node)=>{
+
+        if(node.name==='p'){
+            return convertNodeToElement(node);
+        }else{
+            return null;
+        }
+    };
 
 
     renderFirstBlog=()=>{
@@ -38,13 +47,13 @@ class Home extends React.Component{
                 <Card style={{width:'95%'}}>
                     <GridContainer>
                         <GridItem xs={12} sm={12} md={6} container justify={'center'} alignItems={'center'}>
-                            <img style={{width:"auto",height:'100%',maxHeight:400}} src={images[0]}/>
+                            <img style={{padding:15,maxWidth:'100%',width:"auto",height:'100%',maxHeight:400}} src={images[0]}/>
                         </GridItem>
                         <GridItem xs={12} sm={12} md={6} container alignItems={'center'}>
                             <Grid container alignItems={'center'} style={{margin:'2%'}}>
                                 <h3>{title}</h3>
                                 <div>
-                                    {HtmlParser(content.substring(0,600))}
+                                    {HtmlParser(content.substring(0,600),{transform:this.transformFunc})}
                                     <p style={{fontSize:12,color:'#3C4858'}}>Written: {FormatDate(date)}</p>
                                 </div>
                                 <Button onClick={()=>history.push(`blog/posts:${id}`)} size={'sm'} round>
@@ -106,7 +115,7 @@ class Home extends React.Component{
             <div>
                 <Helmet>
                     <title>{data.title}</title>
-                    {/*need to add description in here*/}
+                    <description>{data.description}</description>
                 </Helmet>
                 <Header
                     brand="My Pale Legs"
@@ -119,7 +128,7 @@ class Home extends React.Component{
                     }}
                     {...rest}
                 />
-                <Parallax  small filter image={data.bannerImage}>
+                <Parallax  small filter={data.filter} image={data.bannerImage}>
                     <div className={classes.container}>
                         <GridContainer>
                             <GridItem container justify={'center'} alignItems={'center'}>

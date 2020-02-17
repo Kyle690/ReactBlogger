@@ -32,17 +32,14 @@ class ViewBlog extends React.Component{
     };
 
     componentDidMount() {
-        window.scrollTo(0, 0)
-    }
-
-
-    componentWillMount() {
+        window.scrollTo(0, 0);
         this.props.UpdateViewCounter(this.props.id,res=>{
-           if(res.status===2){
-               console.log(res.msg);
-           }
+            if(res.status===2){
+                console.log(res.msg);
+            }
         });
     }
+
 
     handleMainComment=(text)=>{
         this.setState({loading:true});
@@ -123,12 +120,12 @@ class ViewBlog extends React.Component{
                                         {author.photoURL!==''?
                                             <Avatar
                                                 alt={'avatar'}
-                                                src={author.photoURL}
+                                                src={this.props.avatar}
                                             />:
                                             <Avatar><p>?</p></Avatar>
                                         }
                                         <div style={{marginLeft:10}}>
-                                            <p>Author: {author.displayName}</p>
+                                            <p>Author: {this.props.author}</p>
                                             <p>Written: {FormatDate(date)}</p>
                                         </div>
                                     </Grid>
@@ -165,7 +162,7 @@ class ViewBlog extends React.Component{
                     show={this.state.loading}
                 />
                 <Helmet>
-                    <title>{title}</title>
+                    <title>My Pale Legs - {title}</title>
                     {/*need to add description in here*/}
                 </Helmet>
                 <Header
@@ -219,7 +216,9 @@ const mapStateToProps=(state,ownProps)=>{
         data,
         blogPost,
         title,
-        auth:state.auth
+        auth:state.auth,
+        author:state.content.data.aboutMe.blogAuthor,
+        avatar:state.content.data.aboutMe.blogAvatar,
     }
 };
 

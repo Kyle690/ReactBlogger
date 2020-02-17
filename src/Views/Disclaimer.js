@@ -27,6 +27,7 @@ class Disclaimer extends React.Component{
             <div>
                 <Helmet>
                     <title>{data.title}</title>
+                    <description>{data.description}</description>
                 </Helmet>
                 <Header
                     brand="My Pale Legs"
@@ -39,7 +40,7 @@ class Disclaimer extends React.Component{
                     }}
                     {...rest}
                 />
-                <Parallax small filter image={data.bannerImage}>
+                <Parallax small filter={data.filter} image={data.bannerImage}>
                     <div className={classes.container}>
                         <GridContainer>
                             <GridItem container justify={'center'} alignItems={'center'}>

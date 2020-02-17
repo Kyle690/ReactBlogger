@@ -53,7 +53,7 @@ class BlogCategories extends React.Component{
                                         title={title}
                                         image={images[0]}
                                         date={date}
-                                        onClick={()=>history.push(`blog/posts:${id}`)}
+                                        onClick={()=>history.push(`/blog/posts:${id}`)}
                                     />
                                 </GridItem>
                             )

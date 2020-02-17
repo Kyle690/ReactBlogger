@@ -17,28 +17,28 @@ const SocialBar=(props)=>{
             </GridItem>
             <Grid container justify={'space-around'}>
             {facebook!==''?
-                <a href={facebook}>
+                <a href={facebook}  target="_blank">
                     <Button  round justIcon style={{fontSize:100}}><Facebook /></Button>
                 </a>
                 :''
             }
                 {instagram!==''?
-                    <a href={instagram}>
+                    <a href={instagram}  target="_blank">
                         <Button round justIcon><Instagram style={{fontSize:40}}/></Button>
                     </a>:''
                 }
                 {youtube!==''?
-                    <a href={youtube}>
+                    <a href={youtube}  target="_blank">
                         <Button  round justIcon><YouTube style={{fontSize:40}}/></Button>
                     </a>:''
                 }
                 {twitter!==''?
-                    <a href={twitter}>
+                    <a href={twitter}  target="_blank">
                         <Button round justIcon><Twitter style={{fontSize:40}}/></Button>
                     </a>:''
                 }
                 {contactEmail!==''?
-                    <a href={'mailto:'+contactEmail}>
+                    <a href={'mailto:'+contactEmail} >
                         <Button round justIcon><Email style={{fontSize:40}}/></Button>
                     </a>:''
                 }

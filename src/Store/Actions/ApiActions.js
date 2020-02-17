@@ -7,23 +7,25 @@ export const UpdateViewCounter=(blogId,callback)=>async dispatch=>{
         .then(async response=>{
             const {status,token,msg}=response.data;
 
+            console.log(status);
             if(status===1){
 
                 const key = token.split('.').join('');
                 const ref = await database.ref(`blogs/${blogId}/views`);
                 ref.once("value").then(snap=>{
                    const views = snap.val();
-
+                    const newRef =database.ref(`blogs/${blogId}`);
                     if(views !== null && views !== undefined){
-                        if(!views[key]){
-                            const newRef =database.ref(`blogs/${blogId}`);
-
+                        if(!views[key] && views !==0){
                             views[key]=Date.now();
-
                             newRef.update({views:views})
                                 .then(()=>callback({status:1, token}))
                                 .catch(err=>callback({status:2,msg:err.message}));
-                        }else{
+                        }else if(views===0){
+                            ref.set({[key]:Date.now()})
+                                .then(()=>callback({status:1, token}))
+                                .catch(err=>callback({status:2,msg:err.message}));
+                        } else{
                             callback({status:1,token});
                         }
                     }else{

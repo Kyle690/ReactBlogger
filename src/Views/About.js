@@ -28,6 +28,7 @@ class About extends React.Component{
                 <Helmet>
                     <title>{data.title}</title>
                     {/*need to add description in here*/}
+                    <description>{data.description}</description>
                 </Helmet>
                 <Header
                     brand="My Pale Legs"
@@ -40,7 +41,7 @@ class About extends React.Component{
                     }}
                     {...rest}
                 />
-                <Parallax small filter image={data.bannerImage}>
+                <Parallax small filter={data.filter} image={data.bannerImage}>
                     <div className={classes.container}>
                         <GridContainer>
                             <GridItem container justify={'center'} alignItems={'center'}>
