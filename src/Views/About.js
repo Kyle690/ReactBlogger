@@ -15,7 +15,7 @@ import Footer from "../CustomComponents/Footer";
 import CardBody from "../components/Card/CardBody";
 import Card from "../components/Card/Card";
 import {Helmet} from "react-helmet/es/Helmet";
-
+import Interweave from "interweave";
 
 class About extends React.Component{
     componentDidMount() {
@@ -41,7 +41,7 @@ class About extends React.Component{
                     }}
                     {...rest}
                 />
-                <Parallax small filter={data.filter} image={data.bannerImage}>
+                <Parallax filter={data.filter} image={data.bannerImage}>
                     <div className={classes.container}>
                         <GridContainer>
                             <GridItem container justify={'center'} alignItems={'center'}>
@@ -56,8 +56,10 @@ class About extends React.Component{
                             <CardBody>
                                 <GridItem xs={12} container justify={'center'} alignItems={'center'} direction={'column'}>
                                     <Avatar style={{height:200,width:200}} src={data.blogAvatar}/>
-                                    <h4>{data.blogAuthor}</h4>
-                                    {HtmlParser(data.content)}
+                                    <h3>{data.blogAuthor}</h3>
+                                    <div style={{marginLeft:'5%',marginRight:'5%'}}>
+                                        <Interweave content={data.content}/>
+                                    </div>
                                 </GridItem>
                             </CardBody>
                         </Card>

@@ -1,0 +1,10 @@
+.imageBlock{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    max-height: 400px;
+    object-fit: contain;
+    z-index:9999;
+    border:1px;
+}

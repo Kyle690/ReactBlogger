@@ -22,7 +22,11 @@ function HeaderLinks({ ...props }) {
 
   const {isLoggedIn,avatar}=auth;
   const handleLogin=()=>{
-      props.GoogleLogin()
+      props.GoogleLogin(res=>{
+          res.status===1?
+              alert('You have been logged in successfully.'):
+              alert(res.msg);
+      })
   };
   const handleLogout=()=>{
     props.GoogleLogOut()
@@ -36,7 +40,7 @@ function HeaderLinks({ ...props }) {
         </ListItem>
         <ListItem className={classes.listItem} >
           <Link to={'/about'} className={classes.navLink}>
-              About Us
+              About Me
           </Link>
       </ListItem>
         <ListItem className={classes.listItem} >

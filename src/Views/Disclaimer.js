@@ -10,7 +10,7 @@ import GridItem from "../components/Grid/GridItem";
 import classNames from 'classnames';
 import Card from "../components/Card/Card";
 import CardBody from "../components/Card/CardBody";
-import HtmlParser from "react-html-parser";
+import Interweave from "interweave";
 import BlogDivider from "../CustomComponents/Divider";
 import Footer from "../CustomComponents/Footer";
 import {BlogFooter} from "../components/Footer/BlogFooter";
@@ -40,7 +40,7 @@ class Disclaimer extends React.Component{
                     }}
                     {...rest}
                 />
-                <Parallax small filter={data.filter} image={data.bannerImage}>
+                <Parallax filter={data.filter} image={data.bannerImage}>
                     <div className={classes.container}>
                         <GridContainer>
                             <GridItem container justify={'center'} alignItems={'center'}>
@@ -53,9 +53,11 @@ class Disclaimer extends React.Component{
                     <Grid container justify={'center'} direction={"column"}>
                         <Card>
                             <CardBody>
-                                <Grid container justify={'center'} alignItems={'center'} direction={'column'}>
-                                    {HtmlParser(data.content)}
-                                </Grid>
+                                <div style={{marginLeft:'5%', marginRight:'5%'}}>
+                                    <Interweave
+                                        content={data.content}
+                                    />
+                                </div>
                             </CardBody>
                         </Card>
                     </Grid>

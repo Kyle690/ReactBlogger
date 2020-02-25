@@ -11,7 +11,7 @@ import history from "../../history";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
 import Card from "../../components/Card/Card";
-import HtmlParser from "react-html-parser";
+import Interweave from "interweave";
 import Carousel from "react-slick";
 import {Avatar} from "@material-ui/core";
 import {FormatDate} from "../../functions";
@@ -24,7 +24,10 @@ import {GoogleLogin} from "../../Store/Actions/GoogleLogin";
 import {addComment, addReply} from "../../Store/Actions/blogActions";
 import {Loading} from "../../components/Loading";
 
-
+// Import css files
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../../assets/css/BlogImage.css";
 class ViewBlog extends React.Component{
 
     state={
@@ -95,28 +98,44 @@ class ViewBlog extends React.Component{
                 <GridContainer>
                     <GridItem xs={12} container justify={'center'}>
                         <Card>
-                            <div style={{paddingLeft:'10%', paddingRight:'10%'}}>
+                            <div style={{paddingLeft:'5%', paddingRight:'5%'}}>
                                 <Grid container justify={'center'} alignItems={'center'} direction={'column'}>
                                     <h1>{title}</h1>
                                 </Grid>
                                 <div style={{marginTop:10,marginBottom:10}}>
                                     <Carousel {...settings}>
                                         {images.map((image,index)=>(
-                                            <div key={index}>
-                                                <img
-                                                    style={{width:'auto',maxHeight:600}}
-                                                    src={image}
-                                                    alt={index+'image'}
-                                                    className="slick-image"
-                                                />
-                                            </div>
+                                                <div key={index}>
+                                                    <div style={{
+                                                        backgroundImage:`url("${image}")`,
+                                                        height:400,
+                                                        width:'100%',
+                                                        marginLeft: 'auto',
+                                                        marginRight: 'auto',
+                                                        backgroundSize:'150%',
+                                                        backgroundRepeat:'no-repeat',
+                                                        backgroundColor:'rgba(0,0,0,0.3)',
+                                                        backgroundPosition:'center bottom',
+                                                        backgroundBlendMode:'multiply',
+                                                        backdropFilter:'blur(10px)'
+                                                    }}>
+                                                    <img
+                                                        key={index}
+                                                        src={image}
+                                                        alt={index+'image'}
+                                                        className="imageBlock"
+                                                    />
+                                                    </div>
+                                                </div>
 
                                         ))}
                                     </Carousel>
                                 </div>
                                 <div style={{padding:25}}>
-                                    {HtmlParser(content)}
-                                    <Grid style={{padding:25}} container direction={'row'} justify={'flex-start'} alignItems={'center'} >
+                                    <Interweave
+                                        content={content}
+                                    />
+                                    <Grid style={{padding:25}} container direction={'row'} justify={'flex-start'} alignItems={'center'}>
                                         {author.photoURL!==''?
                                             <Avatar
                                                 alt={'avatar'}
@@ -125,8 +144,7 @@ class ViewBlog extends React.Component{
                                             <Avatar><p>?</p></Avatar>
                                         }
                                         <div style={{marginLeft:10}}>
-                                            <p>Author: {this.props.author}</p>
-                                            <p>Written: {FormatDate(date)}</p>
+                                            <p>Author: {this.props.author}<br/>Written: {FormatDate(date)} </p>
                                         </div>
                                     </Grid>
 
@@ -206,7 +224,6 @@ const mapStateToProps=(state,ownProps)=>{
         if(blogId===blog.id){
             blogPost=blog;
             title=blog.title;
-
         }
     });
 

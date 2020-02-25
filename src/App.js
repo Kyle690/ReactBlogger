@@ -11,7 +11,7 @@ import Home from './Views/Home';
 import About from './Views/About';
 import Blogs from "./Views/Blogs";
 import Disclaimer from "./Views/Disclaimer";
-
+import TestView from './Views/testView';
 
 import "./assets/scss/material-kit-react.scss";
 import {Loading} from "./components/Loading";
@@ -52,7 +52,7 @@ class App extends React.Component{
                     buttonStyle={{ color: "#4e503b", fontSize: "13px", backgroundColor:'#efe' }}
                     expires={150}
                 >
-                    This website uses cookies to enhance the user experience.
+                    We use cookies and other technologies to tailor your experience. Learn more by reading our Disclaimer. By clicking "Accept" or by continuing to use the site, you agree to the use of cookies and data.
                 </CookieConsent>
                 {this.state.loaded?
                 <Router history={history}>
@@ -63,6 +63,7 @@ class App extends React.Component{
                         <Route path={"/blog/categories:id"} exact component={BlogCategories}/>
                         <Route path={'/blog/posts:id'} exct component={ViewBlog}/>
                         <Route path={"/disclaimer"} exact component={Disclaimer}/>
+                        <Route path={'/test'} exact component={TestView}/>
                     </Switch>
                 </Router>:
                     <div>

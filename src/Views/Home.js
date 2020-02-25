@@ -4,7 +4,7 @@ import {connect}from 'react-redux';
 import classNames from 'classnames';
 import HeaderLinks from "../components/Header/HeaderLinks";
 import Parallax from "../components/Parallax/Parallax";
-import {Grid, withStyles, Divider} from "@material-ui/core";
+import {Grid, withStyles} from "@material-ui/core";
 import GridContainer from "../components/Grid/GridContainer";
 import GridItem from "../components/Grid/GridItem";
 import HtmlParser, {convertNodeToElement} from "react-html-parser";
@@ -18,6 +18,7 @@ import BlogDivider from "../CustomComponents/Divider";
 import Footer from "../CustomComponents/Footer/";
 import {Helmet} from "react-helmet/es/Helmet";
 import history from "../history";
+import Interweave from "interweave";
 
 class Home extends React.Component{
 
@@ -47,19 +48,24 @@ class Home extends React.Component{
                 <Card style={{width:'95%'}}>
                     <GridContainer>
                         <GridItem xs={12} sm={12} md={6} container justify={'center'} alignItems={'center'}>
-                            <img style={{padding:15,maxWidth:'100%',width:"auto",height:'100%',maxHeight:400}} src={images[0]}/>
+                            <img style={{padding:15,maxWidth:'100%',width:"auto",height:'auto',maxHeight:400}} src={images[0]}/>
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={6} container alignItems={'center'}>
-                            <Grid container alignItems={'center'} style={{margin:'2%'}}>
-                                <h3>{title}</h3>
-                                <div>
-                                    {HtmlParser(content.substring(0,600),{transform:this.transformFunc})}
+                        <GridItem xs={12} sm={12} md={6} container  alignItems={'center'}>
+                            <div>
+                                <Grid container alignItems={'center'} style={{margin:'2%'}}>
+                                    <h3>{title}</h3>
+                                </Grid>
+                                <div style={{margin:'2%'}}>
+                                    {/*HtmlParser(content.substring(0,600),{transform:this.transformFunc})*/}
+                                    <Interweave
+                                        content={content.substring(0,600)+'...'}
+                                    />
                                     <p style={{fontSize:12,color:'#3C4858'}}>Written: {FormatDate(date)}</p>
                                 </div>
                                 <Button onClick={()=>history.push(`blog/posts:${id}`)} size={'sm'} round>
                                     Read More
                                 </Button>
-                            </Grid>
+                            </div>
                         </GridItem>
                     </GridContainer>
                 </Card>
@@ -87,17 +93,20 @@ class Home extends React.Component{
             return (
                 <GridContainer>
                     {blogPost.map(post=>{
-                        const {images,title, id, date}=post;
-                        return (
-                            <GridItem xs={12} sm={12} md={4} key={id} container justify={'center'}>
-                               <BlogCard
-                                title={title}
-                                image={images[0]}
-                                date={date}
-                                onClick={()=>history.push(`blog/posts:${id}`)}
-                               />
-                            </GridItem>
-                        )
+                        if(post !== undefined){
+                            const {images,title, id, date}=post;
+                            return (
+                                <GridItem xs={12} sm={12} md={4} key={id} container justify={'center'}>
+                                    <BlogCard
+                                        title={title}
+                                        image={images[0]}
+                                        date={date}
+                                        onClick={()=>history.push(`blog/posts:${id}`)}
+                                    />
+                                </GridItem>
+                            )
+                        }
+
                     })}
                 </GridContainer>
             )
@@ -128,7 +137,7 @@ class Home extends React.Component{
                     }}
                     {...rest}
                 />
-                <Parallax  small filter={data.filter} image={data.bannerImage}>
+                <Parallax  filter={data.filter} image={data.bannerImage}>
                     <div className={classes.container}>
                         <GridContainer>
                             <GridItem container justify={'center'} alignItems={'center'}>
@@ -139,9 +148,6 @@ class Home extends React.Component{
                 </Parallax>
                 <div className={classNames(classes.main)}>
                     <GridContainer>
-                        <GridItem xs={12} container justify={'center'}>
-                            <h2>Feature Post</h2>
-                        </GridItem>
                         <GridItem xs={12} container justify={'center'}>
                             {this.renderFirstBlog()}
                         </GridItem>

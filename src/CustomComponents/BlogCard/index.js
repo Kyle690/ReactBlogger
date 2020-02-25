@@ -26,7 +26,7 @@ export default (props)=>{
     return (
         <Card style={{width: "20rem"}}>
             <img
-                style={{maxHeight: "180px",height:'100%',width:'auto', display: "block"}}
+                style={{maxHeight: "180px",height:'100%',width:'auto',objectFit:'contain', display: "block"}}
                 className={classes.imgCardTop}
                 src={image}
                 alt="image"

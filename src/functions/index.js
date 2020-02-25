@@ -5,7 +5,7 @@ export const FormatDate=(date)=>{
     const year = d.getFullYear();
     const time=d.getHours()+':'+('0'+d.getMinutes()).slice(-2);
 
-    return day+'/'+month+'/'+year+' '+time;
+    return day+'/'+month+'/'+year;
 };
 
 export const FilterReply=(str)=>{
